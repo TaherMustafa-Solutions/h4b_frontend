@@ -1,27 +1,34 @@
-import {FlatList, RefreshControl, StyleSheet, Text, View} from 'react-native';
+import {
+  FlatList,
+  Pressable,
+  RefreshControl,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import React, {useEffect, useState} from 'react';
+import {Dialog, Portal, useTheme} from 'react-native-paper';
 import client from '../client';
-import {useTheme} from 'react-native-paper';
-import RankCard from '../components/RankCard';
+import OrderCard from '../components/OrderCard';
 
-const Leaderboard = () => {
+const Orders = () => {
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [errorModal, setErrorModal] = useState(false);
   const [errorTitle, setErrorTitle] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const [ranks, setRanks] = useState([]);
+  const [orders, setOrders] = useState([]);
 
   const theme = useTheme();
 
-  const getRanks = async () => {
+  const getOrders = async () => {
     setLoading(true);
     try {
-      const {data: res} = await client.get('leaderboard');
+      const {data: res} = await client.get('orderPending');
 
       if (res.result === true) {
-        setRanks(res.data);
-        console.log(res.data);
+        setOrders(res.data);
       } else {
         setErrorModal(true);
         setErrorTitle('Error!');
@@ -38,7 +45,7 @@ const Leaderboard = () => {
   };
 
   useEffect(() => {
-    getRanks();
+    getOrders();
   }, []);
 
   return (
@@ -74,13 +81,11 @@ const Leaderboard = () => {
       )}
 
       <FlatList
-        data={ranks}
-        renderItem={({item, index}) => (
-          <RankCard key={index} index={index} rank={item} />
-        )}
+        data={orders}
+        renderItem={({item, index}) => <OrderCard key={index} order={item} />}
         showsVerticalScrollIndicator={true}
         refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={getRanks} />
+          <RefreshControl refreshing={refreshing} onRefresh={getOrders} />
         }
         bouncesZoom
         bounces
@@ -90,6 +95,29 @@ const Leaderboard = () => {
   );
 };
 
-export default Leaderboard;
+export default Orders;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  title: theme => ({
+    textAlign: 'center',
+    color: theme.colors.secondary,
+  }),
+
+  button_text: theme => ({
+    color: theme.colors.primary,
+    fontSize: 18,
+  }),
+
+  modal_text: theme => ({
+    color: theme.colors.secondary,
+    fontWeight: 700,
+    fontSize: 15,
+  }),
+
+  modal_btn: {
+    marginRight: 10,
+    paddingTop: 15,
+    paddingBottom: 5,
+    paddingHorizontal: 15,
+  },
+});

@@ -23,7 +23,7 @@ const ArticleCard = ({article}) => {
           width={width}
           height={250}
           panGestureHandlerProps={{
-            activeOffsetX: [-10, 10],
+            activeOffsetX: [-20, 20],
           }}
           data={article.imgs}
           autoPlay={article.imgs.length > 1 ? true : false}

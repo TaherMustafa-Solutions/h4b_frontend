@@ -17,9 +17,9 @@ const theme = {
     primary: '#43A047',
     secondary: '#DCEDC8',
     secondaryContainer: '#43A047',
-    surfaceVariant: '#fff',
-    onSurfaceVariant: '#fff',
-    outline: '#fff',
+    surfaceVariant: '#43A047',
+    onSurfaceVariant: '#43A047',
+    outline: '#43A047',
   },
 };
 

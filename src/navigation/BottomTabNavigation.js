@@ -14,7 +14,7 @@ import {useEffect, useState} from 'react';
 import Leaderboard from '../screens/Leaderboard';
 import Articles from '../screens/Articles';
 import Profile from '../screens/Profile';
-import Feedback from '../screens/Feedback';
+import Bag from '../screens/Bag';
 // import {useSelector} from 'react-redux';
 
 // const dotIcon = require('../assets/3dots.png');
@@ -177,13 +177,13 @@ export default function BottomTabNavigation() {
         }}
       />
       <Tab.Screen
-        name="Feedback"
-        component={Feedback}
+        name="Bag"
+        component={Bag}
         options={{
           tabBarIcon: ({focused}) => (
             <View style={{alignItems: 'center', justifyContent: 'center'}}>
               <Image
-                source={require('../assets/icons/feedback_2.png')}
+                source={require('../assets/icons/bag.png')}
                 resizeMode="contain"
                 style={{
                   width: 32,
@@ -198,7 +198,7 @@ export default function BottomTabNavigation() {
                   color: focused ? '#388E3C' : 'black',
                   fontSize: 13,
                 }}>
-                Feedback
+                Bag
               </Text>
             </View>
           ),

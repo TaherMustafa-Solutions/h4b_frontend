@@ -17,6 +17,9 @@ import {Colors} from 'react-native/Libraries/NewAppScreen';
 import Add from './src/screens/Add';
 import Articles from './src/screens/Articles';
 import Navigation from './src/navigation';
+import {Provider} from 'react-redux';
+import {persistor, store} from './src/store';
+import {PersistGate} from 'redux-persist/integration/react';
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
@@ -33,7 +36,11 @@ function App() {
         backgroundColor={'#DCEDC8'}
       />
 
-      <Navigation />
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <Navigation />
+        </PersistGate>
+      </Provider>
 
       {/* <Articles /> */}
     </>
